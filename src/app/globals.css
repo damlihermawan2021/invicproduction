@@ -1,0 +1,122 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+@import url('https://fonts.googleapis.com/css2?family=Arima&display=swap');
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;  /* Menghilangkan scroll horizontal */
+  overflow-y: auto;    /* Memungkinkan scroll vertikal */
+}
+
+* {
+  box-sizing: border-box; 
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  min-height: 100vh; 
+  font-family: var(--font-monda), sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.layout-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* Biar proporsional */
+.slider-container {
+  flex: 2;                /* slider lebih lebar */
+  height: 400px;          /* boleh atur tinggi tetap */
+  position: relative;
+  overflow: hidden;
+}
+
+.article-container {
+  flex: 1;                /* artikel lebih kecil */
+  padding: 10px;
+}
+
+.slider-track {
+  display: flex;
+  will-change: transform;
+}
+
+.slider-image {
+  flex-shrink: 0;
+  width: 40%;            /* isi penuh container */
+  height: 40%;
+  object-fit: cover;
+}
+
+/* Tombol navigasi */
+.btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 20px;
+  z-index: 2;
+}
+.btn.prev { left: 10px; }
+.btn.next { right: 10px; }
+
+
+.container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* Responsif untuk mobile */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* dari row → column */
+    align-items: center;   /* tengah */
+    text-align: center;    /* artikel rata tengah */
+  }
+
+  .slider-container {
+    width: 100%; 
+    height: auto;         /* biar fleksibel */
+  }
+
+  .slider-image {
+    width: 100%;          /* gambar penuh layar */
+    height: auto;         
+  }
+
+  .article-container {
+    padding: 15px;
+  }
+}
