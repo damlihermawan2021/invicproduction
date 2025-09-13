@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image"; // ✅ pakai Next Image
 
 const images = [
   "/KAOS/A (1).webp", "/KAOS/A (2).webp", "/KAOS/A (3).webp", "/KAOS/A (4).webp",
   "/KAOS/L (1).webp", "/KAOS/L (2).webp", "/KAOS/L (3).webp", "/KAOS/L (4).webp",
-  "/KAOS/O  (1).webp", "/KAOS/O  (2).webp", "/KAOS/O  (3).webp", "/KAOS/O  (4).webp",
-  "/KAOS/P  (1).webp", "/KAOS/P  (2).webp", "/KAOS/P  (3).webp", "/KAOS/P (4).webp",
+  "/KAOS/O (1).webp", "/KAOS/O (2).webp", "/KAOS/O (3).webp", "/KAOS/O (4).webp",
+  "/KAOS/P (1).webp", "/KAOS/P (2).webp", "/KAOS/P (3).webp", "/KAOS/P (4).webp",
   "/KAOS/R (1).webp", "/KAOS/R (2).webp", "/KAOS/R (3).webp"
 ];
 
@@ -15,6 +16,7 @@ export default function ImageSlider() {
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
+
     let pos = 0;
     let frame;
     const move = () => {
@@ -26,6 +28,7 @@ export default function ImageSlider() {
       setOffset(pos);
       frame = requestAnimationFrame(move);
     };
+
     frame = requestAnimationFrame(move);
     return () => cancelAnimationFrame(frame);
   }, []);
@@ -45,7 +48,7 @@ export default function ImageSlider() {
 
           {/* Descriptions */}
           <p className="text-lg md:text-xl font-semibold text-gray-100 leading-relaxed drop-shadow-md">
-            memproduksi Pakaian Premium & High Quality untuk kebutuhanmu dan
+            Memproduksi Pakaian Premium &amp; High Quality untuk kebutuhanmu dan
             komunitasmu.
           </p>
           <p className="text-base md:text-lg text-gray-200 leading-relaxed drop-shadow-md">
@@ -70,9 +73,11 @@ export default function ImageSlider() {
               key={i}
               className="flex-shrink-0 w-1/2 md:w-1/3 flex items-center justify-center"
             >
-              <img
+              <Image
                 src={image}
                 alt={`Kaos ${i}`}
+                width={300} // ✅ wajib diisi
+                height={400} // ✅ wajib diisi
                 className="w-auto max-h-64 sm:max-h-72 md:max-h-[400px] object-contain hover:scale-105 transition-transform duration-300"
               />
             </div>

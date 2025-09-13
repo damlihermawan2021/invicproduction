@@ -1,7 +1,8 @@
-"use client";
+'use client'; // Menandai ini sebagai client-side component
 
-import { useEffect, useState, useRef } from "react";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import React, { useState, useEffect, useRef } from 'react';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from 'next/image'; // Mengimpor komponen Image dari next/image
 
 export default function Galeri() {
   const [images, setImages] = useState([]);
@@ -18,16 +19,17 @@ export default function Galeri() {
     async function loadImages() {
       setLoading(true);
       try {
-        const res = await fetch("/api/galery");
+        const res = await fetch('/api/galery');
         const data = await res.json();
         setImages(data);
       } catch (err) {
-        console.error("Gagal ambil gambar:", err);
+        console.error('Gagal ambil gambar:', err);
       }
       setLoading(false);
     }
     loadImages();
-  }, []);
+  }, []); // Tidak ada perubahan yang bergantung pada state lain di sini
+
   const indexOfLastImage = currentPage * imagesPerPage;
   const indexOfFirstImage = indexOfLastImage - imagesPerPage;
   const currentImages = images.slice(indexOfFirstImage, indexOfLastImage);
@@ -62,6 +64,7 @@ export default function Galeri() {
       prevImage();
     }
   };
+
   return (
     <section id="galeri" className="bg-gray-50">
       <h2 className="text-3xl text-center font-bold mb-12">Galeri</h2>
@@ -81,9 +84,11 @@ export default function Galeri() {
                 className="relative group cursor-pointer overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-all duration-500"
                 onClick={() => setSelectedIndex(indexOfFirstImage + i)}
               >
-                <img
+                <Image
                   src={img}
                   alt={`Galeri ${indexOfFirstImage + i + 1}`}
+                  width={500} // Tentukan lebar gambar sesuai dengan desain
+                  height={375} // Tentukan tinggi gambar sesuai dengan desain
                   className="w-full aspect-[4/3] object-cover transform transition duration-700 ease-out group-hover:scale-110"
                 />
                 <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition duration-500">
@@ -110,8 +115,8 @@ export default function Galeri() {
             onClick={() => goToPage(i + 1)}
             className={`px-4 py-2 rounded-full transition ${
               currentPage === i + 1
-                ? "bg-red-600 text-white shadow-md"
-                : "bg-gray-200 hover:bg-gray-300"
+                ? 'bg-red-600 text-white shadow-md'
+                : 'bg-gray-200 hover:bg-gray-300'
             }`}
           >
             {i + 1}
@@ -141,9 +146,11 @@ export default function Galeri() {
           >
             <ChevronLeft size={32} />
           </button>
-          <img
+          <Image
             src={images[selectedIndex]}
             alt={`Preview ${selectedIndex + 1}`}
+            width={800} // Tentukan ukuran gambar sesuai dengan ukuran preview
+            height={600} // Tentukan ukuran gambar sesuai dengan ukuran preview
             className="max-h-[75vh] max-w-[90vw] rounded-xl shadow-2xl object-contain transition-transform duration-500 ease-in-out"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
