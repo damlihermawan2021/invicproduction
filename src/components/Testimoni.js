@@ -33,13 +33,14 @@ export default function Testimoni() {
 
   const [index, setIndex] = useState(0);
   const intervalRef = useRef(null);
+  const testimoniesLength = testimonies.length; // ✅ biar aman, const aja
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
-      setIndex((prev) => (prev + 1) % testimonies.length);
+      setIndex((prev) => (prev + 1) % testimoniesLength);
     }, 10000);
     return () => clearInterval(intervalRef.current);
-  }, []);
+  }, [testimoniesLength]); // ✅ dependency sudah bener
 
   return (
     <section id="testimoni" className="py-20 bg-gray-50">
@@ -71,7 +72,7 @@ export default function Testimoni() {
                     className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md mb-4"
                   />
                   <p className="italic text-gray-700 mb-6 leading-relaxed text-sm">
-                    "{t.text}"
+                    {t.text}
                   </p>
                   <h3 className="font-semibold text-lg text-cyan-900">{t.name}</h3>
                   {t.role && <p className="text-sm text-gray-500 mt-1">{t.role}</p>}
@@ -108,7 +109,7 @@ export default function Testimoni() {
                 className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md mb-4"
               />
               <p className="italic text-gray-700 mb-6 leading-relaxed text-sm md:text-base">
-                "{t.text}"
+                {t.text}
               </p>
               <h3 className="font-semibold text-lg text-cyan-900">{t.name}</h3>
               {t.role && <p className="text-sm text-gray-500 mt-1">{t.role}</p>}
