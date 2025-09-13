@@ -8,6 +8,7 @@ export default function Portofolio() {
   const [viewImage, setViewImage] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [pageStates, setPageStates] = useState({});
+  const [mobilePage, setMobilePage] = useState(0); // Pagination untuk mobile
 
   const projects = [
     {
@@ -59,16 +60,19 @@ export default function Portofolio() {
     setViewImage(img);
     setCurrentIndex(index);
   };
+
   const nextImage = (images) => {
     const newIndex = (currentIndex + 1) % images.length;
     setCurrentIndex(newIndex);
     setViewImage(images[newIndex]);
   };
+
   const prevImage = (images) => {
     const newIndex = (currentIndex - 1 + images.length) % images.length;
     setCurrentIndex(newIndex);
     setViewImage(images[newIndex]);
   };
+
   const changePage = (childIndex, newPage) => {
     setPageStates((prev) => ({
       ...prev,
@@ -76,8 +80,17 @@ export default function Portofolio() {
     }));
   };
 
+  const handleMobilePageChange = (direction) => {
+    const totalPages = Math.ceil(selected.children[0].images.length / 6);
+    if (direction === 'next') {
+      setMobilePage((prev) => Math.min(prev + 1, totalPages - 1));
+    } else {
+      setMobilePage((prev) => Math.max(prev - 1, 0));
+    }
+  };
+
   return (
-    <section id="portofolio" className="py-20 bg-gray-50">
+    <section id="portofolio" className="py-10 bg-gray-50">
       <div className="max-w-6xl mx-auto px-6">
         <div className="space-y-10">
           {projects
@@ -91,7 +104,7 @@ export default function Portofolio() {
                 <p className="text-gray-600 mt-2 max-w-4xl">{p.desc}</p>
                 <button
                   onClick={() => setSelected(p)}
-                  className="mt-4 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-700 transition"
+                  className="mt-4 px-6 py-2 bg-red-700 text-white rounded-lg hover:bg-red-500 transition"
                 >
                   Lihat Detail
                 </button>
@@ -118,13 +131,10 @@ export default function Portofolio() {
               {selected.children && (
                 <div className="mt-8 space-y-10">
                   {selected.children.map((child, idx) => {
-                    const perPage = 5;
+                    const perPage = 6;
                     const page = pageStates[idx] || 0;
                     const startIndex = page * perPage;
-                    const visibleImages = child.images.slice(
-                      startIndex,
-                      startIndex + perPage
-                    );
+                    const visibleImages = child.images.slice(startIndex, startIndex + perPage);
                     const totalPages = Math.ceil(child.images.length / perPage);
 
                     return (
@@ -173,8 +183,25 @@ export default function Portofolio() {
                           </div>
                         )}
 
-                        {/* Desktop Gallery */}
-                        <div className="hidden md:grid grid-cols-5 gap-4">
+                        {/* Desktop Gallery - Satu Baris */}
+                        <div className="hidden md:flex gap-4 overflow-x-auto">
+                          {visibleImages.map((img, i2) => (
+                            <div
+                              key={i2}
+                              onClick={() => openImage(img, startIndex + i2)}
+                              className="relative group overflow-hidden rounded-xl shadow cursor-pointer hover:shadow-lg"
+                            >
+                              <img
+                                src={img}
+                                alt={`${child.title} ${startIndex + i2 + 1}`}
+                                className="w-[300px] h-[200px] object-contain transform group-hover:scale-110 transition duration-500"
+                              />
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Mobile Gallery */}
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 md:hidden">
                           {visibleImages.map((img, i2) => (
                             <div
                               key={i2}
@@ -190,25 +217,9 @@ export default function Portofolio() {
                           ))}
                         </div>
 
-                        {/* Mobile Gallery */}
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 md:hidden">
-                          {child.images.map((img, i2) => (
-                            <div
-                              key={i2}
-                              onClick={() => openImage(img, i2)}
-                              className="relative group overflow-hidden rounded-xl shadow cursor-pointer hover:shadow-lg"
-                            >
-                              <img
-                                src={img}
-                                alt={`${child.title} ${i2 + 1}`}
-                                className="w-full aspect-[4/3] object-contain transform group-hover:scale-110 transition duration-500"
-                              />
-                            </div>
-                          ))}
-                        </div>
-
+                        {/* Pagination */}
                         {totalPages > 1 && (
-                          <div className="hidden md:flex justify-center items-center gap-4 mt-4">
+                          <div className="flex justify-center items-center gap-4 mt-4">
                             <button
                               onClick={() => changePage(idx, Math.max(0, page - 1))}
                               disabled={page === 0}

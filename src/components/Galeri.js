@@ -63,7 +63,7 @@ export default function Galeri() {
     }
   };
   return (
-    <section id="galeri" className="py-20 bg-gray-50">
+    <section id="galeri" className="bg-gray-50">
       <h2 className="text-3xl text-center font-bold mb-12">Galeri</h2>
 
       <div className="container mx-auto px-4 sm:px-6">
@@ -110,7 +110,7 @@ export default function Galeri() {
             onClick={() => goToPage(i + 1)}
             className={`px-4 py-2 rounded-full transition ${
               currentPage === i + 1
-                ? "bg-blue-600 text-white shadow-md"
+                ? "bg-red-600 text-white shadow-md"
                 : "bg-gray-200 hover:bg-gray-300"
             }`}
           >

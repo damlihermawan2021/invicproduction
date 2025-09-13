@@ -7,7 +7,7 @@ export default function TentangKami() {
     <section id="tentang" className="py-20 bg-gray-200">
       <div className="container mx-auto px-6 max-w-6xl grid md:grid-cols-2 gap-12 items-center">
         {/* Left: Google Maps */}
-        <div className="relative w-full h-96 rounded-2xl overflow-hidden shadow-lg">
+        <div className="relative w-full h-96 rounded-2xl overflow-hidden shadow-lg md:order-first order-last">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d395.04513171545275!2d110.8688772!3d-7.6152471!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a3d000b02253f%3A0x2c99b1944097af8f!2sInvic%20Production!5e0!3m2!1sid!2sid!4v1694438400000"
             width="100%"

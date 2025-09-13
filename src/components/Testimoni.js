@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { Quote } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+
 export default function Testimoni() {
   const testimonies = [
     {
@@ -29,14 +30,17 @@ export default function Testimoni() {
       img: "/Review/guru3.jpg",
     },
   ];
+
   const [index, setIndex] = useState(0);
   const intervalRef = useRef(null);
+
   useEffect(() => {
     intervalRef.current = setInterval(() => {
       setIndex((prev) => (prev + 1) % testimonies.length);
-    }, 10000); 
+    }, 10000);
     return () => clearInterval(intervalRef.current);
   }, []);
+
   return (
     <section id="testimoni" className="py-20 bg-gray-50">
       <div className="max-w-6xl mx-auto px-6">
@@ -46,18 +50,17 @@ export default function Testimoni() {
             Apa kata mereka yang sudah mempercayakan produk kami.
           </p>
         </div>
+
+        {/* Tampilan mobile */}
         <div className="sm:hidden relative overflow-hidden">
           <div
             className="flex transition-transform duration-700 ease-in-out"
             style={{ transform: `translateX(-${index * 100}%)` }}
           >
             {testimonies.map((t, i) => (
-              <div
-                key={i}
-                className="flex-shrink-0 w-full px-4"
-              >
+              <div key={i} className="flex-shrink-0 w-full mt-7 px-4">
                 <div className="relative p-8 bg-white rounded-2xl shadow-lg flex flex-col items-center text-center">
-                  <div className="absolute -top-6 bg-cyan-600 text-white p-3 rounded-full shadow-md">
+                  <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-cyan-600 text-white p-3 rounded-full shadow-md z-10">
                     <Quote className="w-5 h-5" />
                   </div>
                   <Image
@@ -71,9 +74,7 @@ export default function Testimoni() {
                     "{t.text}"
                   </p>
                   <h3 className="font-semibold text-lg text-cyan-900">{t.name}</h3>
-                  {t.role && (
-                    <p className="text-sm text-gray-500 mt-1">{t.role}</p>
-                  )}
+                  {t.role && <p className="text-sm text-gray-500 mt-1">{t.role}</p>}
                 </div>
               </div>
             ))}
@@ -83,20 +84,20 @@ export default function Testimoni() {
               <button
                 key={i}
                 onClick={() => setIndex(i)}
-                className={`w-3 h-3 rounded-full transition-all ${
-                  index === i ? "bg-cyan-600 w-5" : "bg-gray-400"
-                }`}
+                className={`w-3 h-3 rounded-full transition-all ${index === i ? "bg-cyan-600 w-5" : "bg-gray-400"}`}
               />
             ))}
           </div>
         </div>
+
+        {/* Tampilan desktop */}
         <div className="hidden sm:grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {testimonies.map((t, i) => (
             <div
               key={i}
               className="relative p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition duration-300 flex flex-col items-center text-center"
             >
-              <div className="absolute -top-6 bg-cyan-600 text-white p-3 rounded-full shadow-md">
+              <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-red-600 text-white p-3 rounded-full shadow-md z-10">
                 <Quote className="w-5 h-5" />
               </div>
               <Image
