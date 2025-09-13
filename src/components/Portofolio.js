@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { X, Instagram, ShoppingBag, Store, Music, ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Portofolio() {
@@ -148,6 +149,7 @@ export default function Portofolio() {
                               <a
                                 href={child.links.instagram}
                                 target="_blank"
+                                rel="noopener noreferrer"
                                 className="flex items-center gap-2 px-3 py-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 text-white text-sm hover:opacity-90 transition"
                               >
                                 <Instagram size={16} /> Instagram
@@ -157,6 +159,7 @@ export default function Portofolio() {
                               <a
                                 href={child.links.tokopedia}
                                 target="_blank"
+                                rel="noopener noreferrer"
                                 className="flex items-center gap-2 px-3 py-2 rounded-full bg-green-600 text-white text-sm hover:bg-green-700 transition"
                               >
                                 <Store size={16} /> Tokopedia
@@ -166,6 +169,7 @@ export default function Portofolio() {
                               <a
                                 href={child.links.shopee}
                                 target="_blank"
+                                rel="noopener noreferrer"
                                 className="flex items-center gap-2 px-3 py-2 rounded-full bg-orange-500 text-white text-sm hover:bg-orange-600 transition"
                               >
                                 <ShoppingBag size={16} /> Shopee
@@ -175,6 +179,7 @@ export default function Portofolio() {
                               <a
                                 href={child.links.tiktok}
                                 target="_blank"
+                                rel="noopener noreferrer"
                                 className="flex items-center gap-2 px-3 py-2 rounded-full bg-black text-white text-sm hover:bg-gray-800 transition"
                               >
                                 <Music size={16} /> TikTok
@@ -183,7 +188,7 @@ export default function Portofolio() {
                           </div>
                         )}
 
-                        {/* Desktop Gallery - Satu Baris */}
+                        {/* Desktop Gallery */}
                         <div className="hidden md:flex gap-4 overflow-x-auto">
                           {visibleImages.map((img, i2) => (
                             <div
@@ -191,9 +196,11 @@ export default function Portofolio() {
                               onClick={() => openImage(img, startIndex + i2)}
                               className="relative group overflow-hidden rounded-xl shadow cursor-pointer hover:shadow-lg"
                             >
-                              <img
+                              <Image
                                 src={img}
                                 alt={`${child.title} ${startIndex + i2 + 1}`}
+                                width={300}
+                                height={200}
                                 className="w-[300px] h-[200px] object-contain transform group-hover:scale-110 transition duration-500"
                               />
                             </div>
@@ -208,9 +215,11 @@ export default function Portofolio() {
                               onClick={() => openImage(img, startIndex + i2)}
                               className="relative group overflow-hidden rounded-xl shadow cursor-pointer hover:shadow-lg"
                             >
-                              <img
+                              <Image
                                 src={img}
                                 alt={`${child.title} ${startIndex + i2 + 1}`}
+                                width={300}
+                                height={200}
                                 className="w-full aspect-[4/3] object-contain transform group-hover:scale-110 transition duration-500"
                               />
                             </div>
@@ -268,9 +277,11 @@ export default function Portofolio() {
           >
             <ChevronLeft size={36} />
           </button>
-          <img
+          <Image
             src={viewImage}
             alt="fullscreen"
+            width={1200}
+            height={800}
             className="max-h-[90vh] max-w-[90vw] object-contain rounded-lg shadow-2xl"
           />
           <button
