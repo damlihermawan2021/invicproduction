@@ -1,3 +1,5 @@
+'use client'; // Menandai ini sebagai client-side component
+
 import React, { useState, useEffect } from "react";
 
 const totalImages = 10; // Misalnya ada 10 gambar
