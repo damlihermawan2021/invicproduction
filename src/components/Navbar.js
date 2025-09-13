@@ -43,23 +43,20 @@ export default function Navbar() {
   const linkClasses = (section) =>
     `rounded-md px-3 py-2 ${
       activeSection === section
-        ? 'bg-primary text-white'
-        : 'text-gray-300 hover:bg-primary/80 hover:text-white'
+        ? 'bg-gray text-white'
+        : 'text-gray-300 hover:bg-gray/80 hover:text-white'
     }`;
 
   return (
-    <div className="navbar bg-cyan-950 fixed top-0 left-0 w-full z-50 shadow-md">
+    <div className="navbar bg-black fixed top-0 left-0 w-full z-50 shadow-md">
       <div className="navbar-start flex items-center">
         <Image
-          src="/logo.png"
+          src="/icon-logo/invic logo PUTIH.png"
           alt="Logo"
-          width={25}   // bisa disesuaikan
-          height={25}  // bisa disesuaikan
-          className="rounded-md"
+          width={125} 
+          height={125}
+          className="rounded-md ml-5"
         />
-        <Link href="/" className="normal-case text-lg sm:text-xl md:text-2xl text-white font-extrabold">
-          Invic Production
-        </Link>
       </div>
       <div className="navbar-center hidden sm:flex">
         <ul className="menu menu-horizontal px-1 space-x-1">
@@ -84,7 +81,7 @@ export default function Navbar() {
         </button>
       </div>
       {menuOpen && (
-        <div className="fixed top-0 absolute top-16 right-2 w-56 bg-cyan-900 rounded-lg shadow-lg p-3 sm:hidden">
+        <div className="fixed top-0 absolute top-16 right-2 w-56 bg-black rounded-lg shadow-lg p-3 sm:hidden">
           <ul className="menu menu-vertical space-y-1">
             <li><Link href="/" className={linkClasses('home')} onClick={() => setMenuOpen(false)}>Beranda</Link></li>
             {isRegisterPage ? (

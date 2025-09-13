@@ -1,61 +1,116 @@
 'use client';
-
+import Image from "next/image";
 import { Quote } from "lucide-react";
-
+import { useEffect, useRef, useState } from "react";
 export default function Testimoni() {
   const testimonies = [
     {
-      name: "Andi Pratama",
-      text: "Kaosnya nyaman banget dipakai dan sablonnya awet. Recommended!",
-      img: "https://randomuser.me/api/portraits/men/32.jpg",
+      name: "Ani Sefriana Nadapdap",
+      role: "Kepala Sekolah SMAN 2 BALIGE",
+      text: "Awalnya kami memproduksi rompi di Invic Production, karna kualitas sangat bagus dan harga bersaing, kami juga memproduksi kebutuhan sekolah lainnya disini seperti baju Olahraga. Murid, Guru, dan bahkan Orang tua murid sangat suka dengan kualitas dari Invic Production.",
+      img: "/Review/guru1.jpg",
     },
     {
-      name: "Siti Aminah",
-      text: "Pesanan untuk komunitas kami datang tepat waktu dan hasilnya memuaskan.",
-      img: "https://randomuser.me/api/portraits/women/44.jpg",
+      name: "Batak Hasian Official Store",
+      role: "",
+      text: "Semua kebutuhan toko kami diproduksi disini, kualitas sangat luar biasa. Terimakasih Invic Production sudah menjadi partner setia kami selama 3 tahun ini.",
+      img: "/Review/guru4.jpg",
     },
     {
-      name: "Budi Santoso",
-      text: "Harga terjangkau tapi kualitas tetap premium. Mantap!",
-      img: "https://randomuser.me/api/portraits/men/65.jpg",
+      name: "Rahmat Jumitar Sinaga",
+      role: "Guru SMAN 1 PANGURURAN",
+      text: "Kualitas tidak perlu diragukan lagi, tidak hanya berkualitas tinggi tetapi juga kualitas sangat premium dengan packaging dan bonus-bonus lainnya. Semoga bisa bekerja sama terus dengan Invic Production.",
+      img: "/Review/guru2.jpg",
+    },
+    {
+      name: "Single Katolik Official Store",
+      role: "",
+      text: "Dari awal brand kami dibuat, Invic Production sudah menjadi partner kami dalam mengembangkan brand kami hingga saat ini. Selalu improve dan memberikan pelayanan terbaik untuk kami. Terimakasih untuk semua Tim Invic Production.",
+      img: "/Review/guru3.jpg",
     },
   ];
-
+  const [index, setIndex] = useState(0);
+  const intervalRef = useRef(null);
+  useEffect(() => {
+    intervalRef.current = setInterval(() => {
+      setIndex((prev) => (prev + 1) % testimonies.length);
+    }, 10000); 
+    return () => clearInterval(intervalRef.current);
+  }, []);
   return (
     <section id="testimoni" className="py-20 bg-gray-50">
-      <div className="container text-center mb-16 mx-auto px-6">
-        {/* Judul */}
-        <div className="text-center mt-16 max-w-2xl mx-auto">
-          <h2 className="text-2xl font-bold">Testimoni Pelanggan</h2>
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <h2 className="text-3xl font-bold text-cyan-900">Testimoni Pelanggan</h2>
           <p className="text-gray-600 mt-3">
             Apa kata mereka yang sudah mempercayakan produk kami.
           </p>
         </div>
-
-        {/* Card Testimoni */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="sm:hidden relative overflow-hidden">
+          <div
+            className="flex transition-transform duration-700 ease-in-out"
+            style={{ transform: `translateX(-${index * 100}%)` }}
+          >
+            {testimonies.map((t, i) => (
+              <div
+                key={i}
+                className="flex-shrink-0 w-full px-4"
+              >
+                <div className="relative p-8 bg-white rounded-2xl shadow-lg flex flex-col items-center text-center">
+                  <div className="absolute -top-6 bg-cyan-600 text-white p-3 rounded-full shadow-md">
+                    <Quote className="w-5 h-5" />
+                  </div>
+                  <Image
+                    src={t.img}
+                    alt={t.name}
+                    width={100}
+                    height={100}
+                    className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md mb-4"
+                  />
+                  <p className="italic text-gray-700 mb-6 leading-relaxed text-sm">
+                    "{t.text}"
+                  </p>
+                  <h3 className="font-semibold text-lg text-cyan-900">{t.name}</h3>
+                  {t.role && (
+                    <p className="text-sm text-gray-500 mt-1">{t.role}</p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-center mt-6 space-x-2">
+            {testimonies.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setIndex(i)}
+                className={`w-3 h-3 rounded-full transition-all ${
+                  index === i ? "bg-cyan-600 w-5" : "bg-gray-400"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="hidden sm:grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {testimonies.map((t, i) => (
             <div
               key={i}
-              className="relative p-8 bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 flex flex-col items-center text-center"
+              className="relative p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl hover:scale-105 transition duration-300 flex flex-col items-center text-center"
             >
-              {/* Icon Quote */}
               <div className="absolute -top-6 bg-cyan-600 text-white p-3 rounded-full shadow-md">
                 <Quote className="w-5 h-5" />
               </div>
-
-              {/* Foto Profil */}
-              <img
+              <Image
                 src={t.img}
                 alt={t.name}
-                className="w-20 h-20 rounded-full object-cover border-4 border-white shadow-md mb-4"
+                width={100}
+                height={100}
+                className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md mb-4"
               />
-
-              {/* Text */}
-              <p className="italic text-gray-700 mb-4">"{t.text}"</p>
-
-              {/* Nama */}
+              <p className="italic text-gray-700 mb-6 leading-relaxed text-sm md:text-base">
+                "{t.text}"
+              </p>
               <h3 className="font-semibold text-lg text-cyan-900">{t.name}</h3>
+              {t.role && <p className="text-sm text-gray-500 mt-1">{t.role}</p>}
             </div>
           ))}
         </div>
