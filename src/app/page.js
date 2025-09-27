@@ -16,7 +16,7 @@ export default function Home() {
 
       <section
         id="home"
-        className="min-h-screen flex items-center justify-center bg-gradient-to-r from-white via-gray to-black text-white"
+        className="min-h-screen flex items-center justify-center bg-gray-200"
       >
         <ImageSlider />
       </section>

@@ -37,33 +37,36 @@ export default function ImageSlider() {
     <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 pt-24 md:pt-12">
       
       {/* Text Section */}
-      <div className="order-1 md:order-2 px-4 md:px-0 w-full md:w-1/3 max-w-sm mx-auto space-y-3">
-        <div className="md:bg-transparent bg-black/60 md:p-0 p-4 rounded-lg text-center md:text-left">
-          
-          {/* Headline */}
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-wide drop-shadow-lg">
-            <span className="text-red-600">INVIC</span>{" "}
-            <span className="text-white">PRODUCTION</span>
-          </h2>
+{/* Text Section */}
+<div className="order-1 md:order-2 px-4 md:px-0 w-full md:w-1/3 max-w-sm mx-auto space-y-3">
+  <div className="md:bg-transparent bg-black/60 md:p-0 p-4 rounded-lg text-center md:text-left">
+    
+    {/* Headline */}
+    <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-wide drop-shadow-lg">
+      <span className="text-red-600">INVIC</span>{" "}
+      {/* mobile: putih, desktop: hitam */}
+      <span className="text-white md:text-gray-900">PRODUCTION</span>
+    </h2>
 
-          {/* Descriptions */}
-          <p className="text-base sm:text-lg md:text-xl font-semibold text-gray-100 leading-relaxed drop-shadow-md">
-            Memproduksi Pakaian Premium &amp; High Quality untuk kebutuhanmu dan
-            komunitasmu.
-          </p>
-          <p className="text-sm sm:text-base md:text-lg text-gray-200 leading-relaxed drop-shadow-md">
-            Kami juga menyediakan Kaos Polos dengan berbagai varian warna dan
-            style serta sablon satuan.
-          </p>
+    {/* Descriptions */}
+    {/* mobile: putih/abu terang, desktop: abu gelap/hitam */}
+    <p className="text-base sm:text-lg md:text-xl font-semibold text-gray-100 md:text-gray-800 leading-relaxed drop-shadow-md">
+      Memproduksi Pakaian Premium &amp; High Quality untuk kebutuhanmu dan
+      komunitasmu.
+    </p>
+    <p className="text-sm sm:text-base md:text-lg text-gray-200 md:text-gray-700 leading-relaxed drop-shadow-md">
+      Kami juga menyediakan Kaos Polos dengan berbagai varian warna dan
+      style serta sablon satuan.
+    </p>
 
-          {/* Button */}
-          <a href="#produk">
-            <button className="mt-4 bg-red-800 hover:bg-red-600 text-white px-5 py-2 rounded-lg transition">
-              Lihat Koleksi
-            </button>
-          </a>
-        </div>
-      </div>
+    {/* Button (biarkan sama) */}
+    <a href="#produk">
+      <button className="mt-4 bg-red-800 hover:bg-red-600 text-white px-5 py-2 rounded-lg transition">
+        Lihat Koleksi
+      </button>
+    </a>
+  </div>
+</div>
       {/* Slider Section */}
       <div className="order-2 md:order-1 w-full md:w-2/3 overflow-hidden relative flex items-center">
         <div ref={trackRef} className="flex transition-transform">

@@ -55,7 +55,7 @@ export default function Navbar() {
           alt="Logo"
           width={125} 
           height={125}
-          className="rounded-md ml-5"
+          className=""
         />
       </div>
       <div className="navbar-center hidden sm:flex">
