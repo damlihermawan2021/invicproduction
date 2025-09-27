@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
-/* ===================== SIZE CHART (mobile rapat, no scroll) ===================== */
+/* ===================== SIZE CHART (compact no-gap) ===================== */
 function SizeChart({ code }) {
   const T = {
     A: [
@@ -66,54 +66,53 @@ function SizeChart({ code }) {
   const hdr = titleMap[code] || [];
   if (!rows.length) return null;
 
-  // Lebar per kolom. Kalau masih mepet di HP kecil, kecilin lagi angka w-xx
-  const W = ["w-14", "w-20", "w-28", "w-20"];
-
-  const HeadCell = ({ text, idx }) => (
-    <th
-      className={`px-1.5 sm:px-3 py-1.5 sm:py-2 text-[10px] sm:text-sm font-semibold text-gray-700 whitespace-nowrap ${W[idx]}`}
-    >
+  const HeadCell = ({ text }) => (
+    <th className="px-2 py-1 text-[11px] sm:text-sm font-semibold text-gray-700 leading-tight text-center whitespace-nowrap">
       {text}
     </th>
   );
-  const Cell = ({ children, idx }) => (
-    <td className={`px-1.5 sm:px-3 py-1.5 sm:py-2 text-[10px] sm:text-sm whitespace-nowrap ${W[idx]}`}>
+  const Cell = ({ children }) => (
+    <td className="px-2 py-1 text-[11px] sm:text-sm leading-tight text-center whitespace-nowrap">
       {children}
     </td>
   );
 
   return (
-    <div className="mt-4">
-      <h3 className="font-semibold mb-2">Size Chart</h3>
-      <div className="rounded-2xl border border-gray-200">
-        <table className="w-full table-fixed">
+    <div className="mt-3">
+      {/* rapetin jarak judul */}
+      <h3 className="font-semibold mb-1">Size Chart</h3>
+
+      <div className="rounded-2xl border border-gray-200 overflow-hidden">
+        {/* border-collapse untuk hilangin celah header-body */}
+        <table className="w-full border-collapse">
           <thead className="bg-gray-50">
             <tr>
-              {hdr.map((h, i) => <HeadCell key={h} text={h} idx={i} />)}
+              {hdr.map((h, i) => <HeadCell key={i} text={h} />)}
             </tr>
           </thead>
           <tbody>
             {rows.map((r, i) => (
               <tr key={i} className="odd:bg-white even:bg-gray-50">
-                <Cell idx={0}>{r.size}</Cell>
-
                 {code === "A" ? (
                   <>
-                    <Cell idx={1}>{r.usia}</Cell>
-                    <Cell idx={2}>{r.lebar} cm</Cell>
-                    <Cell idx={3}>{r.panjang} cm</Cell>
+                    <Cell>{r.size}</Cell>
+                    <Cell>{r.usia}</Cell>
+                    <Cell>{r.lebar} cm</Cell>
+                    <Cell>{r.panjang} cm</Cell>
                   </>
                 ) : code === "R" || code === "P" ? (
                   <>
-                    <Cell idx={1}>{r.lebar} cm</Cell>
-                    <Cell idx={2}>{r.lingkardada} cm</Cell>
-                    <Cell idx={3}>{r.panjang} cm</Cell>
+                    <Cell>{r.size}</Cell>
+                    <Cell>{r.lebar} cm</Cell>
+                    <Cell>{r.lingkardada} cm</Cell>
+                    <Cell>{r.panjang} cm</Cell>
                   </>
                 ) : (
                   <>
-                    <Cell idx={1}>{r.lebar} cm</Cell>
-                    <Cell idx={2}>{r.panjang} cm</Cell>
-                    <Cell idx={3}>{r.lengan} cm</Cell>
+                    <Cell>{r.size}</Cell>
+                    <Cell>{r.lebar} cm</Cell>
+                    <Cell>{r.panjang} cm</Cell>
+                    <Cell>{r.lengan} cm</Cell>
                   </>
                 )}
               </tr>
@@ -121,7 +120,7 @@ function SizeChart({ code }) {
           </tbody>
         </table>
 
-        <div className="px-3 py-3 bg-gray-50 text-[10px] sm:text-[12px] text-gray-600 rounded-b-2xl">
+        <div className="px-3 py-2 bg-gray-50 text-[10px] sm:text-[12px] text-gray-600">
           * Toleransi ukuran ±1–2 cm. Disarankan ukur kaos favorit kamu, lalu cocokkan dengan tabel.
         </div>
       </div>
@@ -252,7 +251,7 @@ export default function Produk() {
 
       {selected && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-2 sm:p-4">
-          {/* Modal agak lebih lebar supaya tabel nyaman */}
+          {/* Modal sedikit lebih lebar biar tabel lega */}
           <div className="bg-white rounded-2xl shadow-lg w-full max-w-xl max-h-[90vh] overflow-y-auto p-4 sm:p-6 relative">
             <button
               onClick={() => setSelected(null)}
@@ -316,24 +315,24 @@ export default function Produk() {
                 })}
               </div>
 
-            <p className="font-semibold mt-3">Ukuran:</p>
-            <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-2">
-              {selected.size.map((sz) => {
-                const active = selectedSize === sz;
-                return (
-                  <button
-                    key={sz}
-                    onClick={() => setSelectedSize(sz)}
-                    className={`px-2 py-1 text-[11px] sm:px-3 sm:py-1.5 sm:text-sm rounded-md sm:rounded-lg border transition
-                      ${active ? 'bg-red-700 text-white border-red-700'
-                              : 'bg-white text-gray-800 border-gray-300 hover:bg-gray-50'}`}
-                    aria-pressed={active}
-                  >
-                    {sz}
-                  </button>
-                );
-              })}
-            </div>
+              <p className="font-semibold mt-3">Ukuran:</p>
+              <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-2">
+                {selected.size.map((sz) => {
+                  const active = selectedSize === sz;
+                  return (
+                    <button
+                      key={sz}
+                      onClick={() => setSelectedSize(sz)}
+                      className={`px-2 py-1 text-[11px] sm:px-3 sm:py-1.5 sm:text-sm rounded-md sm:rounded-lg border transition
+                        ${active ? 'bg-red-700 text-white border-red-700'
+                                 : 'bg-white text-gray-800 border-gray-300 hover:bg-gray-50'}`}
+                      aria-pressed={active}
+                    >
+                      {sz}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Size Chart tampil langsung */}
